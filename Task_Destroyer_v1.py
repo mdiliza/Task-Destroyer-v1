@@ -1,6 +1,17 @@
 from io import TextIOBase
 from tkinter import *
+import datetime
 import time
+
+
+def Sandout(count):
+    if(count > 0):        
+        time_box.delete("1.0", END)
+        time_box.insert("1.0", count)
+        tdes.after(1000, Sandout, count-1)
+    else:
+        time_box.delete("1.0, END")
+        time_box.insert("1.0", "This Worked!")
 
 tdes = Tk()
 tdes.geometry("500x500")
@@ -10,17 +21,27 @@ tdes.rowconfigure(2,weight=1)
 tdes.columnconfigure(0, weight=1)
 tdes.columnconfigure(1, weight=1)
 tdes.columnconfigure(2, weight=1)
-time_box = Text(tdes, background="lightblue")
-
-#taking time values for eventual timer
-old_time = time.time()
-task_duration = 10
-time.sleep(task_duration)
-new_time = time.time()
-elapse = new_time-old_time
-print(f"time: {old_time:.2f}")
-print(f"New time: {new_time:.2f} \nTime elapsed = {elapse:.2f}")
-time_box.insert("1.0", f"seconds this epoch: {new_time}")
-time_box.configure()
+time_box = Text(tdes, background="lightblue", font=("Aerial", 50 ), fg = "green")
 time_box.grid(row=1, column=1, rowspan=1, columnspan=1)
+sec_entry = Entry(tdes)
+sec_entry.grid(row=2, column=1, rowspan=1, columnspan=1)
+count = 10
+
+Sandout(count) 
 tdes.mainloop()
+
+
+
+
+
+"""taking time values for eventual real timer??
+
+display_time = old_time.strftime("%X")
+print(f"current time: {display_time}")
+time.sleep(10)
+new_time = datetime.datetime.now()
+display_time= new_time.strftime("%X")
+print(f"current time: {display_time}")
+time_box.insert("1.0", f"Current Time: {display_time}") """
+
+
